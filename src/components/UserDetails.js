@@ -18,7 +18,7 @@ const attrKey = 'attributes';
 
 const UserDetails = withRouter(({user, setUser, loadUser, history}) => {
   const { getAccessTokenSilently } = useAuth0();
-  const { getDisplayState, identity, setIdentity } = useAserto();
+  const { getDisplayState, identity } = useAserto();
   const { users, loadUsers } = useUsers();
   const [showDetail, setShowDetail] = useState(false);
   const [editing, setEditing] = useState(false);   // edit phone property
@@ -129,10 +129,6 @@ const UserDetails = withRouter(({user, setUser, loadUser, history}) => {
     setTitle(user[attrKey].properties.title);
   };
 
-  const impersonate = () => {
-    setIdentity(user.id);
-  }
-  
   if (!getDisplayState('GET', resourcePath).visible) {
     return (
       <Container className="mb-5">
@@ -200,14 +196,7 @@ const UserDetails = withRouter(({user, setUser, loadUser, history}) => {
             onClick={() => setShowDetail(!showDetail)}
           >
             {showDetail ? 'Hide' : 'Show'} Detail
-          </Button>
-          <Button 
-            style={{ width: 115 }} 
-            displayState={getDisplayState('IMPERSONATE', resourcePath)} 
-            onClick={impersonate}
-          >
-            Impersonate
-          </Button>          
+          </Button>        
         </Col>
       </Row>
 
